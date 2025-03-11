@@ -20,6 +20,7 @@ static PROBLEMS : LazyLock<HashMap<usize,fn() -> ()>> = LazyLock::new(|| {
     probs
 });
 
+// UI produced by Claude.ai since that was not the main purpose of this project.
 fn main() {
     use std::io::{self, Write};
     
