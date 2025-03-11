@@ -1,3 +1,60 @@
+use std::{collections::HashMap, sync::LazyLock};
+
+mod problems;
+
+static PROBLEMS : LazyLock<HashMap<usize,fn() -> ()>> = LazyLock::new(|| {
+    let mut probs : HashMap<usize, fn() -> ()> = HashMap::new();
+    probs.insert(1,problems::p001::main);
+    probs.insert(2,problems::p002::main);
+    probs.insert(3,problems::p003::main);
+    probs.insert(4,problems::p004::main);
+    probs.insert(5,problems::p005::main);
+    probs.insert(6,problems::p006::main);
+    probs.insert(7,problems::p007::main);
+    probs.insert(8,problems::p008::main);
+    probs.insert(9,problems::p009::main);
+    probs.insert(10,problems::p010::main);
+    probs.insert(11,problems::p011::main);
+    probs.insert(12,problems::p012::main);
+    probs.insert(13,problems::p013::main);
+    probs
+});
+
 fn main() {
-    println!("Hello, world!");
+    use std::io::{self, Write};
+    
+    println!("Project Euler Solutions");
+    println!("----------------------");
+    let mut prob_nums = PROBLEMS.keys().collect::<Vec<_>>();
+    prob_nums.sort();
+    println!("Available problems: {:?}", prob_nums);
+
+    loop {
+        print!("\nEnter problem number (or 'q' to quit): ");
+        io::stdout().flush().unwrap();
+        
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).expect("Failed to read input");
+        
+        let input = input.trim();
+        
+        if input.eq_ignore_ascii_case("q") || input.eq_ignore_ascii_case("quit") {
+            println!("Goodbye!");
+            break;
+        }
+        
+        match input.parse::<usize>() {
+            Ok(num) => {
+                if let Some(solver) = PROBLEMS.get(&num) {
+                    println!("\nRunning solution for Problem {}:", num);
+                    solver();
+                } else {
+                    println!("Problem {} has not been implemented yet.", num);
+                }
+            },
+            Err(_) => {
+                println!("Invalid input. Please enter a number or 'q' to quit.");
+            }
+        }
+    }
 }
