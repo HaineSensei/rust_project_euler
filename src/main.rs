@@ -1,6 +1,7 @@
 use std::{collections::HashMap, sync::LazyLock};
 
 mod problems;
+pub mod utils;
 
 static PROBLEMS : LazyLock<HashMap<usize,fn() -> ()>> = LazyLock::new(|| {
     let mut probs : HashMap<usize, fn() -> ()> = HashMap::new();
@@ -27,6 +28,7 @@ static PROBLEMS : LazyLock<HashMap<usize,fn() -> ()>> = LazyLock::new(|| {
     probs.insert(20,problems::p020::main);
     probs.insert(21,problems::p021::main);
     probs.insert(22,problems::p022::main);
+    probs.insert(23,problems::p023::main);
     probs
 });
 
