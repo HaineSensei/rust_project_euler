@@ -16,3 +16,4 @@ pub mod p015;
 pub mod p016;
 pub mod p017;
 pub mod p018;
+pub mod p067;

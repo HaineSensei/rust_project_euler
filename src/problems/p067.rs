@@ -1,7 +1,7 @@
 use std::{cmp, fs, sync::LazyLock};
 
 static PYRAMID: LazyLock<Vec<Vec<u32>>> = LazyLock::new(|| {
-    let text = fs::read_to_string("src/problems/files/p018_pyramid.txt").unwrap();
+    let text = fs::read_to_string("src/problems/files/p067_pyramid.txt").unwrap();
     let rows = text.split('\n');
     rows.map(|x| x.split(' ')
             .map(|x|x.parse().unwrap())
