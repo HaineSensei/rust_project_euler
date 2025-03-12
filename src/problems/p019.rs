@@ -42,7 +42,6 @@ impl Month {
 }
 
 impl Date {
-    // only handles small errors of + 1 month
     fn normalised(self) -> Self {
         let mut length = self.month.month_length();
         let mut curr = self;
