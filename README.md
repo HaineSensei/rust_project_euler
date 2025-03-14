@@ -1,6 +1,6 @@
 # Rust Project Euler
 
-This is my repository for all my Project Euler solutions in Rust. I will gradually add to here.
+This is my repository for all my Project Euler solutions in Rust. I will gradually add to here. While the UI in [`main.rs`](src/main.rs) and [update tool](`add_problem.rs`) were written by Claude, all individual problem solutions are entirely my work.
 
 ## Running
 
