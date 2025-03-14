@@ -29,6 +29,7 @@ static PROBLEMS : LazyLock<HashMap<usize,fn() -> ()>> = LazyLock::new(|| {
     probs.insert(21,problems::p021::main);
     probs.insert(22,problems::p022::main);
     probs.insert(23,problems::p023::main);
+    probs.insert(24,problems::p024::main);
     probs
 });
 
@@ -38,9 +39,13 @@ fn main() {
     
     println!("Project Euler Solutions");
     println!("----------------------");
-    let mut prob_nums = PROBLEMS.keys().collect::<Vec<_>>();
+    let mut prob_nums: Vec<usize> = PROBLEMS
+        .keys()
+        .map(|x|*x)
+        .collect();
     prob_nums.sort();
-    println!("Available problems: {:?}", prob_nums);
+    let prob_nums = utils::ui_display::formatted_vec(&prob_nums);
+    println!("Available problems: {}", prob_nums);
 
     loop {
         print!("\nEnter problem number (or 'q' to quit): ");

@@ -1,5 +1,7 @@
 use std::{iter::from_fn, sync::{LazyLock, Mutex}};
 
+pub mod ui_display;
+
 static PRIMES: LazyLock<Mutex<Vec<u128>>> = LazyLock::new(|| {
     let x = Mutex::new(Vec::new());
     x.lock().unwrap().push(2);
@@ -88,6 +90,7 @@ impl<'a, T: Copy+Clone, E> MyIterator<'a, Result<T,E>> {
         }).into_iter()
     }
 }
+
 
 #[cfg(test)]
 mod tests {
