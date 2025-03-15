@@ -1,4 +1,4 @@
-use std::collections::{HashMap};
+use std::collections::HashMap;
 
 fn recurrence(n: u16, x: u16) -> u16 {
     (x*10)%n
