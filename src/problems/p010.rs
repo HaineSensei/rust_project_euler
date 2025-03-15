@@ -5,7 +5,7 @@ pub fn main() {
     let mut curr: Vec<u64> = (2..MAX).collect();
     let mut p: u64;
     let mut total: u64 = 0;
-    while prev != curr {
+    while prev.len() != curr.len()-1 {
         ((curr,p),prev) = (next(&curr),curr);
         total += p;
         if p*p > MAX {
