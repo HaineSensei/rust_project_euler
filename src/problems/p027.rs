@@ -53,11 +53,13 @@ impl QuadraticPairValue {
             val: quad.value()
         }
     }
-
+    
+    #[allow(dead_code)]
     fn apply(self, n: u64) -> i128 {
         self.quad.apply(n)
     }
 
+    #[allow(dead_code)]
     fn value(self) -> usize {
         self.val
     }
