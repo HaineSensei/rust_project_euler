@@ -131,7 +131,6 @@ pub fn main() {
     if let Some(quad) = quads.iter().max() {
         println!("{quad}: {}",quad.product())
     }
-    
 }
 
 
