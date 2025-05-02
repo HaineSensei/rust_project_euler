@@ -59,6 +59,28 @@ pub fn primes_less_than(x: u128) -> impl Iterator<Item = u128> {
     }).into_iter()
 }
 
+fn u64_len(x:u64) -> u64 {
+    if x == 0 {
+        0
+    } else {
+        u64_len(x>>1)
+    }
+}
+
+pub fn is_prime(x:u64) -> bool {
+    if x < 1000 {
+        return primes_less_than(x as u128 + 1).collect::<Vec<_>>().contains(&(x as u128));
+    }
+
+    let crude_sqrt = (x >> (u64_len(x)/2)) * 2 ;
+    for p in primes_less_than(crude_sqrt as u128) {
+        if x % p as u64 == 0 {
+            return false;
+        }
+    }
+    true
+}
+
 pub struct MyIterator<'a, T>(&'a mut dyn Iterator<Item = T>);
 
 impl<T> Iterator for MyIterator<'_, T> {
@@ -95,6 +117,18 @@ impl<'a, T: Copy+Clone, E> MyIterator<'a, Result<T,E>> {
     }
 }
 
+pub fn digits(x: u64) -> Vec<u8> {
+    format!("{x}")
+        .chars()
+        .map(|c|{
+            c.to_string().parse().unwrap()
+        })
+        .collect()
+}
+
+pub fn u64_from_digits(digits: &[u8]) -> u64 {
+    digits.iter().fold(0,|x,&y|x*10 + (y as u64))
+}
 
 #[cfg(test)]
 mod tests {
@@ -103,6 +137,18 @@ mod tests {
     #[test]
     fn test_primes_less_than() {
         assert_eq!(primes_less_than(20).collect::<Vec<_>>(),[2,3,5,7,11,13,17,19]);
+    }
+
+    #[test]
+    fn test_is_prime() {
+        assert!(is_prime(2));
+        assert!(is_prime(3));
+        assert!(!is_prime(4));
+
+        let x = primes_less_than(1000).last().unwrap();
+        let y = x*x;
+        assert!(is_prime(x as u64));
+        assert!(!is_prime(y as u64));
     }
 
     #[test]
@@ -120,5 +166,27 @@ mod tests {
         let mut iter = iterator();
         assert_eq!(iter.next().unwrap(),6);
         assert_eq!(iter.next().unwrap(),12);
+    }
+
+    #[test]
+    fn test_digits() {
+        let num = 1294;
+        let digits = digits(num);
+        assert_eq!(digits,[1,2,9,4])
+    }
+
+    #[test]
+    fn test_u64_from_digits() {
+        let digits = vec![3,5,6,3,2,9];
+        let num = u64_from_digits(&digits);
+        assert_eq!(num, 356329);
+    }
+
+    #[test]
+    fn digits_u64_from_digits_inverse() {
+        let ds = vec![2,4,6,7,3,6];
+        let num = 859291;
+        assert_eq!(digits(u64_from_digits(&ds)), ds);
+        assert_eq!(u64_from_digits(&digits(num)), num);
     }
 }
