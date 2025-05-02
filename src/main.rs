@@ -39,6 +39,7 @@ static PROBLEMS : LazyLock<HashMap<usize,fn() -> ()>> = LazyLock::new(|| {
     probs.insert(32,problems::p032::main);
     probs.insert(31,problems::p031::main);
     probs.insert(33,problems::p033::main);
+    probs.insert(34,problems::p034::main);
     probs
 });
 
