@@ -1,111 +1,123 @@
-use std::env;
-use std::fs::{self, OpenOptions};
-use std::io::{self, Write};
+use std::fs::{self, File};
+use std::io::Write;
 use std::path::Path;
-use std::process;
 
-fn main() -> io::Result<()> {
-    // Get problem number from command line args
-    let args: Vec<String> = env::args().collect();
-    if args.len() != 2 {
-        eprintln!("Usage: {} <problem_number>", args[0]);
-        process::exit(1);
+fn main() {
+    let args: Vec<String> = std::env::args().collect();
+    if args.len() < 2 {
+        println!("Usage: {} <problem_number> [status]", args[0]);
+        println!("Status options: complete, inefficient, incomplete (default)");
+        return;
     }
-
-    let problem_num = match args[1].parse::<u32>() {
-        Ok(num) => num,
-        Err(_) => {
-            eprintln!("Error: Problem number must be a positive integer");
-            process::exit(1);
-        }
-    };
-
-    // Format problem number with leading zeros
-    let problem_file = if problem_num < 10 {
-        format!("p00{}", problem_num)
-    } else if problem_num < 100 {
-        format!("p0{}", problem_num)
-    } else {
-        format!("p{}", problem_num)
-    };
-
-    // Check if problem file already exists
-    let problem_path = Path::new("src/problems").join(format!("{}.rs", problem_file));
-    if problem_path.exists() {
-        eprintln!("Error: Problem {} already exists at {:?}", problem_num, problem_path);
-        process::exit(1);
+    
+    let problem_num = args[1].parse::<usize>().expect("Invalid problem number");
+    let status = args.get(2).map(|s| s.as_str()).unwrap_or("incomplete");
+    
+    // Validate status
+    if !["complete", "inefficient", "incomplete"].contains(&status) {
+        println!("Invalid status. Use: complete, inefficient, or incomplete");
+        return;
     }
-
-    // Create problem file with template
-    println!("Creating problem file: {:?}", problem_path);
-    fs::write(&problem_path, "pub fn main() {\n    \n}\n")?;
-
+    
+    // Create problem file
+    create_problem_file(problem_num);
+    
     // Update mod.rs
+    update_mod_file(problem_num, status);
+    
+    println!("Added problem {} with status '{}'", problem_num, status);
+}
+
+fn create_problem_file(num: usize) {
+    let filename = format!("src/problems/p{:03}.rs", num);
+    let path = Path::new(&filename);
+    
+    if path.exists() {
+        println!("Warning: {} already exists", filename);
+        return;
+    }
+    
+    let mut file = File::create(path).expect("Failed to create file");
+    writeln!(file, "pub fn main() {{").unwrap();
+    writeln!(file, "    // TODO: Implement solution for problem {}", num).unwrap();
+    writeln!(file, "    println!(\"Problem {} not yet implemented\");", num).unwrap();
+    writeln!(file, "}}").unwrap();
+}
+
+fn update_mod_file(num: usize, status: &str) {
     let mod_path = Path::new("src/problems/mod.rs");
-    let mod_content = fs::read_to_string(mod_path)?;
-    let mod_line = format!("pub mod {};", problem_file);
+    let content = fs::read_to_string(mod_path).expect("Failed to read mod.rs");
     
-    // Check if the module is already declared
-    if !mod_content.contains(&mod_line) {
-        println!("Updating mod.rs");
-        let mut file = OpenOptions::new().append(true).open(mod_path)?;
-        writeln!(file, "{}", mod_line)?;
-    }
-
-    // Update main.rs
-    let main_path = Path::new("src/main.rs");
-    let main_content = fs::read_to_string(main_path)?;
+    let mut lines: Vec<String> = content.lines().map(|s| s.to_string()).collect();
     
-    // Find where to insert the new problem in main.rs
-    let insert_line = format!("    probs.insert({},problems::{}::main);", problem_num, problem_file);
+    // Find where to insert the module declaration
+    let module_name = format!("pub mod p{:03};", num);
+    let mut module_inserted = false;
+    let mut module_insert_index = 0;
     
-    if main_content.contains(&insert_line) {
-        println!("Problem {} is already registered in main.rs", problem_num);
-    } else {
-        println!("Updating main.rs");
-        
-        // Find the right position to insert the new line
-        let lines: Vec<&str> = main_content.lines().collect();
-        let mut new_content = String::new();
-        let mut inserted = false;
-        
-        // Find the last probs.insert line
-        let mut last_insert_line_idx = 0;
-        for (i, line) in lines.iter().enumerate() {
-            if line.trim().starts_with("probs.insert") {
-                last_insert_line_idx = i;
+    for (i, line) in lines.iter().enumerate() {
+        if line.contains("pub mod p") {
+            if line == &module_name {
+                module_inserted = true;
+                break;
             }
-        }
-        
-        // Insert our new line after the last probs.insert line
-        for (i, line) in lines.iter().enumerate() {
-            new_content.push_str(line);
-            new_content.push('\n');
-            
-            if i == last_insert_line_idx && !inserted {
-                new_content.push_str(&insert_line);
-                new_content.push('\n');
-                inserted = true;
+            // Extract number from module declaration
+            if let Some(start) = line.find("pub mod p") {
+                if let Some(end) = line.find(';') {
+                    if let Ok(existing_num) = line[start+9..end].parse::<usize>() {
+                        if existing_num > num {
+                            module_insert_index = i;
+                            break;
+                        }
+                    }
+                }
             }
-        }
-        
-        // Handle case where we didn't find a place to insert
-        if !inserted {
-            eprintln!("Could not determine where to insert the new problem in main.rs");
-            eprintln!("Please manually add: {}", insert_line);
-        } else {
-            // Remove trailing newline if there was one
-            if new_content.ends_with('\n') {
-                new_content.pop();
-            }
-            
-            // Write the modified content back to main.rs
-            fs::write(main_path, new_content)?;
+            module_insert_index = i + 1;
         }
     }
-
-    println!("Successfully added Problem {}!", problem_num);
-    println!("Edit your solution at: {:?}", problem_path);
     
-    Ok(())
+    if !module_inserted {
+        lines.insert(module_insert_index, module_name);
+    }
+    
+    // Find where to insert the problem entry
+    let status_enum = match status {
+        "complete" => "ProblemStatus::Complete",
+        "inefficient" => "ProblemStatus::Inefficient",
+        _ => "ProblemStatus::Incomplete",
+    };
+    
+    let mut problem_inserted = false;
+    let mut problem_insert_index = 0;
+    
+    for (i, line) in lines.iter().enumerate() {
+        if line.contains("problems.insert(") {
+            // Extract number from problem entry
+            if let Some(start) = line.find("problems.insert(") {
+                if let Some(comma) = line[start..].find(',') {
+                    if let Ok(existing_num) = line[start+16..start+comma].trim().parse::<usize>() {
+                        if existing_num == num {
+                            // Update existing entry
+                            lines[i] = format!("    problems.insert({}, ProblemInfo {{ solver: p{:03}::main, status: {} }});", 
+                                num, num, status_enum);
+                            problem_inserted = true;
+                            break;
+                        } else if existing_num > num {
+                            problem_insert_index = i;
+                            break;
+                        }
+                    }
+                }
+            }
+            problem_insert_index = i + 1;
+        }
+    }
+    
+    if !problem_inserted {
+        lines.insert(problem_insert_index, format!("    problems.insert({}, ProblemInfo {{ solver: p{:03}::main, status: {} }});", 
+            num, num, status_enum));
+    }
+    
+    // Write back to file
+    fs::write(mod_path, lines.join("\n")).expect("Failed to write mod.rs");
 }
