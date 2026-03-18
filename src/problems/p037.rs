@@ -2,36 +2,7 @@
 
 use std::collections::HashSet;
 
-struct PrimesIter {
-    initial:bool,
-    primes_so_far: Vec<usize>,
-    next_check: usize
-}
-
-impl Iterator for PrimesIter {
-    type Item=usize;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        let Self {initial,primes_so_far, next_check} = self;
-        if *initial {
-            *initial = false;
-            return Some(2)
-        }
-        while primes_so_far.iter().any(|p| *next_check%*p==0) {
-            *next_check+=2
-        }
-        let out = *next_check;
-        primes_so_far.push(out);
-        *next_check+=2;
-        Some(out)
-    }
-}
-
-impl PrimesIter {
-    fn new() -> Self {
-        PrimesIter { initial: true, primes_so_far: vec![2], next_check: 3 }
-    }
-}
+use crate::utils::PrimesIter;
 
 enum DigitSplit {
     Single,
@@ -84,22 +55,4 @@ pub fn main() {
             .iter()
             .sum::<usize>()
     );
-}
-
-
-#[cfg(test)]
-mod tests {
-    use crate::{problems::p037::PrimesIter, utils::primes_less_than};
-
-    #[test]
-    fn primesiter_works() {
-        let mut primes = primes_less_than(100);
-        for p in PrimesIter::new() {
-            if let Some(prime) = primes.next() {
-                assert_eq!(p,prime as usize);
-            } else {
-                break
-            }
-        }
-    }
 }

@@ -130,6 +130,38 @@ pub fn u64_from_digits(digits: &[u8]) -> u64 {
     digits.iter().fold(0,|x,&y|x*10 + (y as u64))
 }
 
+pub struct PrimesIter {
+    initial:bool,
+    primes_so_far: Vec<usize>,
+    next_check: usize
+}
+
+impl Iterator for PrimesIter {
+    type Item=usize;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let Self {initial,primes_so_far, next_check} = self;
+        if *initial {
+            *initial = false;
+            return Some(2)
+        }
+        while primes_so_far.iter().any(|p| *next_check%*p==0) {
+            *next_check+=2
+        }
+        let out = *next_check;
+        primes_so_far.push(out);
+        *next_check+=2;
+        Some(out)
+    }
+}
+
+impl PrimesIter {
+    pub fn new() -> Self {
+        PrimesIter { initial: true, primes_so_far: vec![2], next_check: 3 }
+    }
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -188,5 +220,17 @@ mod tests {
         let num = 859291;
         assert_eq!(digits(u64_from_digits(&ds)), ds);
         assert_eq!(u64_from_digits(&digits(num)), num);
+    }
+
+    #[test]
+    fn primesiter_works() {
+        let mut primes = primes_less_than(100);
+        for p in PrimesIter::new() {
+            if let Some(prime) = primes.next() {
+                assert_eq!(p,prime as usize);
+            } else {
+                break
+            }
+        }
     }
 }
