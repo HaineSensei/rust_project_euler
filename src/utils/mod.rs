@@ -145,7 +145,7 @@ impl Iterator for PrimesIter {
             *initial = false;
             return Some(2)
         }
-        while primes_so_far.iter().any(|p| *next_check%*p==0) {
+        while primes_so_far.iter().take_while(|p|*p * *p<=*next_check).any(|p| *next_check%*p==0) {
             *next_check+=2
         }
         let out = *next_check;

@@ -31,7 +31,7 @@ pub fn main() {
     let diag_bases = (0..17).flat_map(|x: usize| (0..17).map(move |y: usize| Point {x,y}));
     let right_bases = (0..17).flat_map(|x: usize| (0..20).map(move |y: usize| Point {x,y}));
     let down_bases = (0..20).flat_map(|x: usize| (0..17).map(move |y: usize| Point {x,y}));
-    let other_diag_bases = (3..20).flat_map(|x: usize| ((0..17).map(move |y: usize| Point {x,y})));
+    let other_diag_bases = (3..20).flat_map(|x: usize| (0..17).map(move |y: usize| Point {x,y}));
     let quads = {
         diag_bases.map(diag)
         .chain(right_bases.map(right))

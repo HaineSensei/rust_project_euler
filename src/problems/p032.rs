@@ -59,7 +59,7 @@ impl Product {
         let mut count = 0;
         let mut curr_start = 0;
         let mut out = [0,0,0];
-        for (index,c) in string.chars().enumerate() {
+        for (index,c) in string.char_indices() {
             if c == ' ' {
                 if let Some(x) = Self::reposition(count) {
                     out[x] = string[curr_start..index].parse().unwrap();
