@@ -103,7 +103,7 @@ pub static PROBLEMS: LazyLock<HashMap<usize, ProblemInfo>> = LazyLock::new(|| {
     problems.insert(38, ProblemInfo { solver: p038::main, status: ProblemStatus::Complete });
     problems.insert(39, ProblemInfo { solver: p039::main, status: ProblemStatus::Complete });
     problems.insert(40, ProblemInfo { solver: p040::main, status: ProblemStatus::Complete });
-    problems.insert(41, ProblemInfo { solver: p041::main, status: ProblemStatus::Incomplete });
+    problems.insert(41, ProblemInfo { solver: p041::main, status: ProblemStatus::Complete });
     problems.insert(51, ProblemInfo { solver: p051::main, status: ProblemStatus::Incomplete});
     problems.insert(67, ProblemInfo { solver: p067::main, status: ProblemStatus::Complete });
     
