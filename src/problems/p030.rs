@@ -1,20 +1,18 @@
+// Firstly, we need to identify an upper bound for all numbers which could satisfy this property.
+// Setting len : $\mathbb{N}$ -> $\mathbb{N}$ to be the length of decimal expansion function,
+// and val_n : $\mathbb{N}$ -> $\mathbb{N}$ to be the sum of nth powers of digits function.
+// Then, we know that
+// 
+// $$N = val_n(N) < len(N)*9^n$$
+// 
+// So,
+// 
+// $$N/len(N) < 9^n$$
+// 
+// since N $\mapsto$ N/len(N) is a piecewise increasing function with pieces being the constant
+// length intervals, and that each piece starts higher than the previous, we may find a sufficient
+// condition for this by looking for the first N in each piece and comparing N/len(N) with 9^n.
 use num_traits::pow;
-
-/// Firstly, we need to identify an upper bound for all numbers which could satisfy this property.
-/// Setting len : $\mathbb{N}$ -> $\mathbb{N}$ to be the length of decimal expansion function,
-/// and val_n : $\mathbb{N}$ -> $\mathbb{N}$ to be the sum of nth powers of digits function.
-/// Then, we know that
-/// 
-/// $$N = val_n(N) < len(N)*9^n$$
-/// 
-/// So,
-/// 
-/// $$N/len(N) < 9^n$$
-/// 
-/// since N $\mapsto$ N/len(N) is a piecewise increasing function with pieces being the constant
-/// length intervals, and that each piece starts higher than the previous, we may find a sufficient
-/// condition for this by looking for the first N in each piece and comparing N/len(N) with 9^n.
-
 
 fn max_num(exponent: usize) -> usize {
     let mut count = 1;

@@ -6,12 +6,14 @@ struct Mask<const NUMBER_DIGITS: usize> {
 }
 
 impl<const N: usize> Mask<N> {
+    #[allow(unused)]
     fn new(xs: &[bool; N]) -> Self {
         Mask::<N>{
             mask_digits: *xs
         }
     }
 
+    #[allow(unused)]
     fn all_for(digits: &[u8; N]) -> Vec<Self> {
         let mut out = Vec::new();
         for indexes in (0..N).powerset() {
@@ -50,7 +52,7 @@ impl<const N: usize> Mask<N> {
 }
 
 
-
+#[allow(unused)]
 pub fn main() {
     let out = (10000..=99999).filter(|&x| {
         let digits = digits(x);
