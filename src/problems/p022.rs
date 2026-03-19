@@ -2,7 +2,7 @@ use std::fs;
 
 fn value(name: &str) -> u64 {
     name.chars()
-        .map(|c|(c as u8 - ('A' as u8) + 1) as u64)
+        .map(|c|(c as u8 - b'A' + 1) as u64)
         .sum()
 }
 

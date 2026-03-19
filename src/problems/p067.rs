@@ -21,7 +21,7 @@ pub fn main() {
             let value = pyramid_get(n,i);
             if 0==i {
                 let pyramid_row = max_pyramid.get(n-1).unwrap();
-                row.push(value + pyramid_row.get(0).unwrap());
+                row.push(value + pyramid_row.first().unwrap());
             } else if i==n {
                 let pyramid_row = max_pyramid.get(n-1).unwrap();
                 row.push(value + pyramid_row.get(n-1).unwrap());
@@ -32,6 +32,6 @@ pub fn main() {
         }
         max_pyramid.push(row);
     }
-    let final_row = max_pyramid.get(max_pyramid.len()-1).unwrap();
+    let final_row = max_pyramid.last().unwrap();
     println!("{}",final_row.iter().max().unwrap());
 }

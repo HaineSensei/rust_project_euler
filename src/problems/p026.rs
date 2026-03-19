@@ -10,7 +10,7 @@ fn recurring_decimal_recip_len(n: u16) -> u16 {
     seen.insert(1,Some(0));
     let mut count = 1;
     let mut curr = 10 % n;
-    while let None = seen.get(&curr) {
+    while seen.get(&curr).is_none() {
         seen.insert(curr,Some(count));
         (curr, count) = (recurrence(n, curr), count+1);
     }

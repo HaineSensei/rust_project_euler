@@ -5,7 +5,7 @@ fn amicable(x:u32) -> bool {
 fn d(x: u32) -> u32 {
     let mut out = 0;
     for i in 1..x {
-        if x%i == 0 {
+        if x.is_multiple_of(i) {
             out += i;
         }
     }

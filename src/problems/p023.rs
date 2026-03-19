@@ -36,11 +36,10 @@ fn d(x: u64) -> u64 {
             if total_product == x {
                 return Err("hi")
             }
-            let p = p as u64;
             let mut total = 1;
             let mut curr_pow = p;
             loop {
-                if x%curr_pow != 0 {
+                if !x.is_multiple_of(curr_pow) {
                     break
                 }
                 total += curr_pow;
@@ -50,7 +49,7 @@ fn d(x: u64) -> u64 {
             Ok(total)
         }).to_my_iterator()
         .terminate_on_err()
-        .fold(1,|x,y| x*y);
+        .product::<u64>();
     if sigma < x {
         println!("{sigma},{x}")
     }

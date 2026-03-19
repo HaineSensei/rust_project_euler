@@ -13,7 +13,7 @@ fn prime(n:usize) -> u64 {
             if p*p>current {
                 break
             }
-            if current%p==0 {
+            if current.is_multiple_of(*p) {
                 continue 'outer;
             }
         }

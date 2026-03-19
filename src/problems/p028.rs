@@ -43,11 +43,7 @@ fn edge_starting_point(side: Side, ring: usize) -> (usize, usize) {
 }
 
 fn distance_1d(a: usize, b: usize) -> usize {
-    if a < b {
-        b - a
-    } else {
-        a - b
-    }
+    b.abs_diff(a)
 }
 
 fn distance_2d(p1: (usize,usize), p2: (usize,usize)) -> usize {

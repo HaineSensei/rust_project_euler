@@ -3,11 +3,10 @@ pub fn main() {
     for n in 100..1000 {
         for m in 100..1000 {
             let mn = m*n;
-            if mn>=max {
-                if is_palindrome(mn) {
+            if mn>=max
+                && is_palindrome(mn) {
                     max = mn;
                 }
-            }
         }
     }
     println!("{max}")

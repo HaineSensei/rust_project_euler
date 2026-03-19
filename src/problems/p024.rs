@@ -42,12 +42,8 @@ pub fn main() {
         let fact = factorial(i);
         let next = remaining_digits[(curr_index/fact) as usize];
         indices.push(next); 
-        remaining_digits = remaining_digits
-            .iter()
-            .filter(|&&x| x != next)
-            .map(|&x| x)
-            .collect();
-        curr_index = curr_index%fact;
+        remaining_digits.retain(|&x| x != next);
+        curr_index %= fact;
     }
     println!("{}",
         Permutation10 {

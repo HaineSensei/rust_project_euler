@@ -38,11 +38,8 @@ impl<const N: usize> Mask<N> {
         let mut out = Vec::new();
         for d in start..10 {
             for i in 0..N {
-                match self.mask_digits[i] {
-                    true => {
-                        digits[i] = d;
-                    },
-                    false => {},
+                if self.mask_digits[i] {
+                    digits[i] = d;
                 }
             }
             out.push(u64_from_digits(&digits));

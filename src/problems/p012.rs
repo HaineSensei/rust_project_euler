@@ -82,7 +82,7 @@ fn factor(n: u128, primes: &mut Vec<u64>) -> HashMap<u64, usize> {
     let mut num = n;
     let mut powers: HashMap<u64, usize> = HashMap::new();
     for &p in primes.iter() {
-        while num%(p as u128)==0 {
+        while num.is_multiple_of(p as u128) {
             num /= p as u128;
             powers.entry(p)
                 .and_modify(|counter| *counter += 1)

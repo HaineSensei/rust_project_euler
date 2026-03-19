@@ -28,7 +28,7 @@ fn prime_product(n: usize) -> PrimeProduct {
     let mut out: HashMap<usize, usize> = HashMap::new();
     let mut curr = n;
     for &p in PRIMES.iter() {
-        while curr % p == 0 {
+        while curr.is_multiple_of(p) {
             curr /= p;
             if out.contains_key(&p) {
                 let exp = *out.get(&p).unwrap();

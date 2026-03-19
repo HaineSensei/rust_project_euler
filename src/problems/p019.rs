@@ -18,7 +18,7 @@ impl Month {
         } else if self.month != 2 {
             30
         } else {
-            if self.year%4 != 0 || (self.year%100 == 0 && self.year%400 != 0) {
+            if !self.year.is_multiple_of(4) || (self.year.is_multiple_of(100) && !self.year.is_multiple_of(400)) {
                 28
             } else {
                 29
@@ -28,12 +28,12 @@ impl Month {
 
     fn successor(self) -> Self {
         if self.month != 12 {
-            return Self {
+            Self {
                 month: self.month+1,
                 year: self.year
             }
         } else {
-            return Self {
+            Self {
                 month: 1,
                 year: self.year + 1
             }
@@ -45,7 +45,7 @@ impl Date {
     fn normalised(self) -> Self {
         let mut length = self.month.month_length();
         let mut curr = self;
-        while !(curr.day <= length) {
+        while curr.day > length {
             curr = Self {
                 day: curr.day - length,
                 month: curr.month.successor()

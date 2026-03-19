@@ -17,5 +17,5 @@ pub fn main() {
 
 fn next(xs: &Vec<u64>) -> (Vec<u64>,u64) {
     let p = xs[0];
-    (xs.iter().filter(|&&x| x % p != 0).map(|x| *x).collect(),p)
+    (xs.iter().filter(|&&x| x % p != 0).copied().collect(),p)
 }

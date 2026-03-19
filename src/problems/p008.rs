@@ -2,7 +2,7 @@ const NUMBER : &str = "731671765313306249192251196744265747423553491949349698352
 
 pub fn main() {
     let thirteens = (0..(1001-13)).map(|x| NUMBER[x..x+13].as_bytes());
-    let sequences = thirteens.map(|x| x.into_iter().map(|x| vec![(*x as char)].iter().collect::<String>().parse::<u64>().expect("AAAAAAAA!")));
+    let sequences = thirteens.map(|x| x.iter().map(|x| [(*x as char)].iter().collect::<String>().parse::<u64>().expect("AAAAAAAA!")));
     let products = sequences.map(|x| x.product::<u64>());
     let max = products.max();
     let Some(max) = max else { unreachable!() };

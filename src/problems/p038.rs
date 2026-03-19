@@ -30,7 +30,7 @@ pub fn main() {
     // since n > 1, we must have our base number <= 9876
     println!("{}",
         (1..=9876)
-        .filter_map(|x|pandigital_product(x))
+        .filter_map(pandigital_product)
         .max()
         .unwrap()
     );

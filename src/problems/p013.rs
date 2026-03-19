@@ -103,7 +103,7 @@ pub fn main() {
     "72107838435069186155435662884062257473692284509516",
     "20849603980134001723930671666823555245252804609722",
     "53503534226472524250874054075591789781264330331690"];
-    let nums: [BigUint;100] = num_strs.map(|x| BigUint::from_str_radix(x,10).ok().expect("strings should be convertible to BigUint."));
+    let nums: [BigUint;100] = num_strs.map(|x| BigUint::from_str_radix(x,10).expect("strings should be convertible to BigUint."));
     let sum: BigUint = nums.iter().sum();
     println!("{sum}");
 }

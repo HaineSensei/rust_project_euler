@@ -75,12 +75,8 @@ fn is_prime(n: i128) -> bool {
     } else {
         let over_estimate_sqrt = (n as f64).sqrt() as u128 + 1; 
         for p in primes_less_than(over_estimate_sqrt) {
-            if n as u128 % p == 0 {
-                return if n as u128 == p {
-                    true
-                } else {
-                    false
-                };
+            if (n as u128).is_multiple_of(p) {
+                return n as u128 == p;
             }
         }
         true

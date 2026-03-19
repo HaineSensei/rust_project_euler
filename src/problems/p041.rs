@@ -48,7 +48,7 @@ static PRIMES: LazyLock<Vec<usize>> = LazyLock::new(||
 );
 
 fn is_prime(x:&usize) -> bool {
-    !PRIMES.iter().any(|p|x%p==0)
+    !PRIMES.iter().any(|p|x.is_multiple_of(*p))
 }
 
 pub fn main() {

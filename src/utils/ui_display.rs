@@ -22,7 +22,7 @@ impl Display for Part {
 }
 
 fn vec_to_parts(xs: &Vec<usize>) -> Vec<Part> {
-    if xs.len() == 0 {
+    if xs.is_empty() {
         return Vec::new()
     } else if xs.len() == 1 {
         return vec![Part::Singleton(xs[0])];
@@ -57,7 +57,7 @@ fn vec_to_parts(xs: &Vec<usize>) -> Vec<Part> {
         if last == start {
             out.push(Part::Singleton(last));
         } else {
-            out.push(Part::Range(Range { start: start, end: last }));
+            out.push(Part::Range(Range { start, end: last }));
         }
     }
     out
@@ -67,7 +67,7 @@ fn formatted_vec_of_parts(xs: &Vec<Part>) -> String {
     if xs.is_empty() {
         String::new()
     } else {
-        xs[1..].iter().fold(format!("{}",xs.get(0).unwrap()), |s,x| format!("{}, {}",s,x))
+        xs[1..].iter().fold(format!("{}",xs.first().unwrap()), |s,x| format!("{}, {}",s,x))
     }
 }
 

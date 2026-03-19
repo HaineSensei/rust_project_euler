@@ -26,7 +26,7 @@ pub fn primes_less_than(x: u128) -> impl Iterator<Item = u128> {
             prev_size += 1000;
         }
         if curr < max_known {
-            let p = *(&curr_primes).get(curr_index).unwrap();
+            let p = *curr_primes.get(curr_index).unwrap();
             curr = p + 1;
             if x > p {
                 curr_index += 1;
@@ -47,8 +47,8 @@ pub fn primes_less_than(x: u128) -> impl Iterator<Item = u128> {
                         }
                     }
                     if prime {
-                        (&mut curr_primes).push(curr);
-                        (&mut new_primes).push(curr);
+                        curr_primes.push(curr);
+                        new_primes.push(curr);
                         return Some(curr);
                     } else {
                         curr += 1;
@@ -56,7 +56,7 @@ pub fn primes_less_than(x: u128) -> impl Iterator<Item = u128> {
                 }
             }
         }
-    }).into_iter()
+    })
 }
 
 fn u64_len(x:u64) -> u64 {
@@ -74,7 +74,7 @@ pub fn is_prime(x:u64) -> bool {
 
     let crude_sqrt = (x >> (u64_len(x)/2)) * 2 ;
     for p in primes_less_than(crude_sqrt as u128) {
-        if x % p as u64 == 0 {
+        if x.is_multiple_of(p as u64) {
             return false;
         }
     }
@@ -113,7 +113,7 @@ impl<'a, T: Copy+Clone, E> MyIterator<'a, Result<T,E>> {
                 Some(Ok(x)) => Some(x),
                 _ => None,
             }
-        }).into_iter()
+        })
     }
 }
 
@@ -152,6 +152,12 @@ impl Iterator for PrimesIter {
         primes_so_far.push(out);
         *next_check+=2;
         Some(out)
+    }
+}
+
+impl Default for PrimesIter {
+    fn default() -> Self {
+        Self::new()
     }
 }
 

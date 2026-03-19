@@ -1,4 +1,3 @@
-use std::iter::{Once, once_with, repeat_n};
 
 fn num_block_length(num_digits:usize) -> usize {
     9*10usize.pow((num_digits-1) as u32)*num_digits

@@ -3,7 +3,7 @@ pub fn main() {
     let mut n: u64 = 2;
     let mut max: u64 = 1;
     while number != 1 {
-        while number % n == 0 {
+        while number.is_multiple_of(n) {
             number /= n;
             max = n;
             println!("{n}");

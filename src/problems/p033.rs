@@ -59,9 +59,9 @@ pub fn main() {
                 let abca = Frac::new(a*10+b, c*10+a);
                 let baac = Frac::new(b*10+a, a*10+c);
                 let bc = Frac::new(b,c);
-                if &abca == &bc {
+                if abca == bc {
                     digit_cancellings.insert((bc,abca));
-                } else if &baac == &bc {
+                } else if baac == bc {
                     digit_cancellings.insert((bc,baac));
                 }
             }
