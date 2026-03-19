@@ -8,6 +8,23 @@ static PRIMES: LazyLock<Mutex<Vec<u128>>> = LazyLock::new(|| {
     x
 });
 
+pub fn alphabetical_position(x:char) -> Result<u8,String> {
+    if !x.is_ascii_alphabetic() {
+        Err(format!("'{x}' is not a alphabetic."))
+    } else {
+        let lower = x.to_ascii_lowercase();
+        let num = lower as u8;
+        Ok(num - b'a' + 1)
+    }
+}
+
+pub fn alphabetical_sum(x:&str) -> Result<usize,String> {
+    x
+    .chars()
+    .map(alphabetical_position)
+    .fold(Ok(0usize),|acc,next| Ok(acc? + next? as usize) )
+}
+
 pub fn primes_less_than(x: u128) -> impl Iterator<Item = u128> {
     let mut curr = 1;
     let mut curr_index = 0;
@@ -238,5 +255,22 @@ mod tests {
                 break
             }
         }
+    }
+
+    #[test]
+    fn test_alphabetical_position() {
+        assert_eq!(alphabetical_position('a'),Ok(1));
+        assert_eq!(alphabetical_position('A'),Ok(1));
+        assert!(alphabetical_position('3').is_err());
+        assert_eq!(alphabetical_position('z'),Ok(26));
+    }
+
+    #[test]
+    fn test_alphabetical_sum() {
+        assert_eq!(alphabetical_sum("ab"),Ok(3));
+        assert!(alphabetical_sum("a3").is_err());
+        assert!(alphabetical_sum("3a").is_err());
+        assert!(alphabetical_sum("36").is_err());
+        assert_eq!(alphabetical_sum("ABCD"),Ok(10));
     }
 }
