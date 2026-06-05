@@ -38,6 +38,8 @@ pub mod p039;
 pub mod p040;
 pub mod p041;
 pub mod p042;
+pub mod p043;
+pub mod p044;
 pub mod p067;
 pub mod p019;
 pub mod p020;
@@ -106,6 +108,8 @@ pub static PROBLEMS: LazyLock<HashMap<usize, ProblemInfo>> = LazyLock::new(|| {
     problems.insert(40, ProblemInfo { solver: p040::main, status: ProblemStatus::Complete });
     problems.insert(41, ProblemInfo { solver: p041::main, status: ProblemStatus::Complete });
     problems.insert(42, ProblemInfo { solver: p042::main, status: ProblemStatus::Complete });
+    problems.insert(43, ProblemInfo { solver: p043::main, status: ProblemStatus::Complete });
+    problems.insert(44, ProblemInfo { solver: p044::main, status: ProblemStatus::Complete });
     problems.insert(51, ProblemInfo { solver: p051::main, status: ProblemStatus::Incomplete});
     problems.insert(67, ProblemInfo { solver: p067::main, status: ProblemStatus::Complete });
     
