@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 use std::{collections::HashSet, iter, sync::LazyLock};
 use crate::utils::{self, MyIteratorExt};
 

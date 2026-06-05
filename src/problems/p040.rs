@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 
 fn num_block_length(num_digits:usize) -> usize {
     9*10usize.pow((num_digits-1) as u32)*num_digits

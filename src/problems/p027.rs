@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Inefficient;
+
 use std::fmt::Display;
 
 use crate::utils::{primes_less_than, MyIteratorExt};

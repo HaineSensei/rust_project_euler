@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Inefficient;
+
 // suppose ABC...D = A! + B! + ... + D!,
 // then since A!, ..., D! <= 9!,
 // ABC...D <= 9!*len(ABC...D) <= 9!*log_10(ABC...D)+1

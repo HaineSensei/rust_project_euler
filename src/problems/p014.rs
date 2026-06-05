@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 use std::{collections::HashMap, sync::{LazyLock, Mutex}};
 
 pub static COLLATZ_LENGTHS: LazyLock<Mutex<HashMap<u64, u64>>> = LazyLock::new(|| {

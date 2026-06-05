@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 use std::collections::HashMap;
 
 fn recurrence(n: u16, x: u16) -> u16 {

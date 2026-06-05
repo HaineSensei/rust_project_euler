@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 pub fn main() {
     let mut max: u32 = 0;
     for n in 100..1000 {

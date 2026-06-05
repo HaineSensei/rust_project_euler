@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 fn amicable(x:u32) -> bool {
     d(d(x)) == x && d(x) != x
 }

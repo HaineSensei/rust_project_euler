@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 
 fn tens_digits(n:u16, zero: bool) -> String {
     let n = n%100;

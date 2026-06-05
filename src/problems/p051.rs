@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Incomplete;
+
 use crate::utils::{digits,u64_from_digits,is_prime};
 use itertools::Itertools;
 

@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::{BufWriter, Write};

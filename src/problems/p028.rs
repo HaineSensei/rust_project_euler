@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 const DIMENSION : usize = 1001;
 const MIDPOINT : usize = 1001/2 + 1;
 

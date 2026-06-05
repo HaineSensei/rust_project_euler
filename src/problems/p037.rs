@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 // looking for 11 primes s.t. ABCD is both left and right truncatable forces ABC to be left truncatable and BCD to be right truncatable.
 
 use std::collections::HashSet;

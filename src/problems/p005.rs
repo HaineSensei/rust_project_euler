@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 pub fn main() {
     let mut product: u32 = 1;
     for n in 2..=20 {

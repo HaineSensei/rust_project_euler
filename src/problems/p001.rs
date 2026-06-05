@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 pub fn main() {
     let mut total = 0;
     for i in 1..1000 {

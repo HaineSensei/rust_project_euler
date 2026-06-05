@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 fn is_palindrome(xs: &str) -> bool {
     xs == xs.chars().rev().collect::<String>()
 }

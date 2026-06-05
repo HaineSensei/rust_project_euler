@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 pub fn main() {
     println!("old: {}",prime(10001));
     println!("new: {}", prime_new(10001));

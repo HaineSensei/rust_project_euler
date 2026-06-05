@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 #[derive(Clone, Copy, PartialEq, Debug)]
 struct Month {
     month: u8,

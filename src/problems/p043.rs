@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 use std::{iter::Filter, ops::RangeInclusive};
 
 use itertools::{Itertools, Permutations};

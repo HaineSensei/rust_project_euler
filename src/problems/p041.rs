@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 use std::{iter::Rev, ops::RangeInclusive, sync::LazyLock};
 
 use itertools::{Itertools, Permutations};

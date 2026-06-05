@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 // Wow I hate how I did this... Felt easier than any alternatives though.
 
 pub fn main() {

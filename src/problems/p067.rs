@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 use std::{cmp, fs, sync::LazyLock};
 
 static PYRAMID: LazyLock<Vec<Vec<u32>>> = LazyLock::new(|| {

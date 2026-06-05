@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 pub fn main() {
     println!("{},{}",fib_even_total_bad(4000000),fib_even_total(4000000));
 }

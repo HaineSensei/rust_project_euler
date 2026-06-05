@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 use std::{collections::{HashMap, HashSet}, hash::Hash, ops::Mul, sync::LazyLock};
 
 use crate::utils::primes_less_than;

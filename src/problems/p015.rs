@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 fn binomial(n: u64, k: u64) -> u64 {
     if k > n {
         return 0;

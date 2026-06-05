@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 use std::{collections::HashMap, hash::Hash};
 
 // pythag triple with a < b < c

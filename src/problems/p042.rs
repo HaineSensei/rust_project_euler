@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 use std::fs::read_to_string;
 
 use crate::utils::alphabetical_sum;

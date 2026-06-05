@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Inefficient;
+
 use std::{collections::HashSet, fmt::Display, hash::Hash};
 use itertools::Itertools;
 

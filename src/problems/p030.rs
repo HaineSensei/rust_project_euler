@@ -1,3 +1,6 @@
+use super::ProblemStatus;
+pub const STATUS: ProblemStatus = ProblemStatus::Complete;
+
 // Firstly, we need to identify an upper bound for all numbers which could satisfy this property.
 // Setting len : $\mathbb{N}$ -> $\mathbb{N}$ to be the length of decimal expansion function,
 // and val_n : $\mathbb{N}$ -> $\mathbb{N}$ to be the sum of nth powers of digits function.
